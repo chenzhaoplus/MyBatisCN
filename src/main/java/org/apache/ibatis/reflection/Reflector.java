@@ -59,7 +59,7 @@ public class Reflector {
   private final Map<String, Invoker> getMethods = new HashMap<>();
   // set方法输入类型。键为属性名，值为对应的该属性的set方法的类型（实际为set方法的第一个参数的类型）
   private final Map<String, Class<?>> setTypes = new HashMap<>();
-  // get方法输出类型。键为属性名，值为对应的该属性的set方法的类型（实际为set方法的返回值类型）
+  // get方法输出类型。键为属性名，值为对应的该属性的get方法的类型（实际为get方法的返回值类型）
   private final Map<String, Class<?>> getTypes = new HashMap<>();
   // 默认构造函数
   private Constructor<?> defaultConstructor;
@@ -108,7 +108,7 @@ public class Reflector {
   private void addGetMethods(Class<?> clazz) {
     // 存储属性的get方法。Map的键为属性名，值为get方法列表。某个属性的get方法用列表存储是因为前期可能会为某一个属性找到多个可能get方法。
     Map<String, List<Method>> conflictingGetters = new HashMap<>();
-    
+
     // 找出该类中所有的方法
     Method[] methods = getClassMethods(clazz);
     // 过滤出get方法，过滤条件有：无入参、符合Java Bean的命名规则；然后取出方法对应的属性名、方法，放入conflictingGetters
